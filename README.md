@@ -25,7 +25,7 @@ These are screenshots of the real frontend running locally in **DEMO DATA / TEST
 
 ### Email preview
 
-![Sandboxed preview of the rendered branded email](docs/screenshots/email-preview.png)
+![Complete sandboxed email preview with logos, message, signature, and footer](docs/screenshots/email-preview-complete.png)
 
 ### Batch confirmation
 

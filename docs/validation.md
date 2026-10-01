@@ -19,7 +19,9 @@ Checked on 1 October 2026 against this sanitized public copy.
 
 The frontend build and all 16 existing tests passed together after the README was added. The sender release gate compiles the generated Code nodes and checks graph, snapshot, suppression, finalization, and runtime integrity fixtures without contacting n8n.
 
-The screenshots were captured at a 1600 × 1250 desktop viewport with an already-installed Playwright Chromium browser. The Chrome extension blocked local preview URLs, so the browser check used the installed Playwright runtime. No live queue, mailbox, or credentials were used.
+The screenshots were captured at 1600 × 1000 (draft editor) and 1600 × 1450 (preview and confirmation) desktop viewports with an already-installed Playwright Chromium browser. The Chrome extension blocked local preview URLs, so the browser check used the installed Playwright runtime. No live queue, mailbox, or credentials were used.
+
+The corrected screenshots wait for the iframe greeting, message, signature, and unsubscribe footer, all three logo images, fonts, and entrance animations before capture. Both email previews were checked for internal clipping, and all three screenshots were inspected visually before publication.
 
 The confirmed demo batch displayed: TEST mode, one recipient, a batch cap of one, and 90-second pacing. The resulting UI confirmed that the batch was created locally and n8n was not contacted.
 
