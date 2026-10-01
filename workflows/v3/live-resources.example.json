@@ -1,0 +1,10 @@
+{
+  "instance": "https://n8n.example.com",
+  "tables": {
+    "outreach_review_queue_v3": "EXAMPLE_TABLE_1",
+    "outreach_batches_v3": "EXAMPLE_TABLE_2",
+    "outreach_batch_items_v3": "EXAMPLE_TABLE_3",
+    "outreach_inbound_events_v3": "EXAMPLE_TABLE_4",
+    "outreach_suppressions_v3": "EXAMPLE_TABLE_5"
+  }
+}

@@ -1,0 +1,34 @@
+# Credentials and runtime configuration
+.env*
+!.env.example
+.dev.vars*
+*.pem
+*.key
+*credentials*.json
+workflows/v3/live-resources.json
+
+# Dependencies and generated output
+node_modules/
+dist/
+.next/
+.vinext/
+.wrangler/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+*.log
+
+# Local tooling and private operational artifacts
+.DS_Store
+.claude/
+.codex/
+.agents/
+.playwright-cli/
+.playwright-mcp/
+backups/
+outputs/
+work/
+
+# Keep the reviewed, non-secret hosting placeholder needed by Vite.
+.openai/*
+!.openai/hosting.json

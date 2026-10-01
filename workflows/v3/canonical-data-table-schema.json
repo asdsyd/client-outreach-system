@@ -1,0 +1,1064 @@
+{
+  "contractVersion": "3.3.0",
+  "hashContracts": {
+    "draft": "outreach-draft-hash.v1",
+    "batchItem": "outreach-batch-item-manifest.v3",
+    "batch": "outreach-batch-manifest.v3"
+  },
+  "tables": [
+    {
+      "name": "outreach_review_queue_v3",
+      "purpose": "Canonical human-review queue. One row per campaign and contact.",
+      "primaryKey": "review_id",
+      "upsertKey": "review_id",
+      "requiredColumns": [
+        "review_id",
+        "contact_key",
+        "campaign_version",
+        "intended_recipient",
+        "draft_subject",
+        "draft_body",
+        "draft_revision",
+        "draft_hash",
+        "draft_hash_schema",
+        "approval_status",
+        "send_status",
+        "created_at",
+        "updated_at"
+      ],
+      "uniqueColumns": [
+        "review_id",
+        "contact_key"
+      ],
+      "enums": {
+        "research_status": [
+          "QUEUED",
+          "RESEARCHING",
+          "RESEARCHED",
+          "SKIPPED",
+          "ERROR"
+        ],
+        "approval_status": [
+          "PENDING_APPROVAL",
+          "APPROVED",
+          "REJECTED",
+          "SKIPPED",
+          "BLOCKED"
+        ],
+        "batch_status": [
+          "UNBATCHED",
+          "RESERVED",
+          "CONFIRMED",
+          "LOCKED",
+          "SENDING",
+          "SENT",
+          "FAILED",
+          "NEEDS_RECONCILIATION",
+          "CANCELLED"
+        ],
+        "send_status": [
+          "UNSENT",
+          "SENDING",
+          "SENT",
+          "SKIPPED",
+          "SUPPRESSED",
+          "FAILED",
+          "NEEDS_RECONCILIATION"
+        ],
+        "engagement_status": [
+          "NONE",
+          "HUMAN_REPLY",
+          "INTERESTED",
+          "QUESTION",
+          "NOT_NOW",
+          "NEGATIVE",
+          "OPTED_OUT",
+          "HARD_BOUNCE",
+          "SOFT_BOUNCE",
+          "AUTO_REPLY",
+          "NEEDS_REVIEW"
+        ]
+      },
+      "createPayload": {
+        "name": "outreach_review_queue_v3",
+        "columns": [
+          {
+            "name": "review_id",
+            "type": "string"
+          },
+          {
+            "name": "contact_key",
+            "type": "string"
+          },
+          {
+            "name": "campaign_version",
+            "type": "string"
+          },
+          {
+            "name": "source_row_number",
+            "type": "number"
+          },
+          {
+            "name": "company_name",
+            "type": "string"
+          },
+          {
+            "name": "specialty",
+            "type": "string"
+          },
+          {
+            "name": "role",
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "type": "string"
+          },
+          {
+            "name": "intended_recipient",
+            "type": "string"
+          },
+          {
+            "name": "email_validation_status",
+            "type": "string"
+          },
+          {
+            "name": "website",
+            "type": "string"
+          },
+          {
+            "name": "location",
+            "type": "string"
+          },
+          {
+            "name": "email_source",
+            "type": "string"
+          },
+          {
+            "name": "grounding",
+            "type": "string"
+          },
+          {
+            "name": "language",
+            "type": "string"
+          },
+          {
+            "name": "research_status",
+            "type": "string"
+          },
+          {
+            "name": "research_summary",
+            "type": "string"
+          },
+          {
+            "name": "personalization_basis",
+            "type": "string"
+          },
+          {
+            "name": "research_sources_json",
+            "type": "string"
+          },
+          {
+            "name": "risks_json",
+            "type": "string"
+          },
+          {
+            "name": "draft_subject",
+            "type": "string"
+          },
+          {
+            "name": "draft_body",
+            "type": "string"
+          },
+          {
+            "name": "draft_revision",
+            "type": "number"
+          },
+          {
+            "name": "draft_hash",
+            "type": "string"
+          },
+          {
+            "name": "draft_hash_schema",
+            "type": "string"
+          },
+          {
+            "name": "approval_status",
+            "type": "string"
+          },
+          {
+            "name": "approved_revision",
+            "type": "number"
+          },
+          {
+            "name": "approved_hash",
+            "type": "string"
+          },
+          {
+            "name": "approved_by",
+            "type": "string"
+          },
+          {
+            "name": "approved_at",
+            "type": "date"
+          },
+          {
+            "name": "decision_reason",
+            "type": "string"
+          },
+          {
+            "name": "batch_id",
+            "type": "string"
+          },
+          {
+            "name": "batch_position",
+            "type": "number"
+          },
+          {
+            "name": "batch_status",
+            "type": "string"
+          },
+          {
+            "name": "batch_confirmed_by",
+            "type": "string"
+          },
+          {
+            "name": "batch_confirmed_at",
+            "type": "date"
+          },
+          {
+            "name": "send_status",
+            "type": "string"
+          },
+          {
+            "name": "provider",
+            "type": "string"
+          },
+          {
+            "name": "provider_message_id",
+            "type": "string"
+          },
+          {
+            "name": "attempt_count",
+            "type": "number"
+          },
+          {
+            "name": "suppressed_reason",
+            "type": "string"
+          },
+          {
+            "name": "lock_token",
+            "type": "string"
+          },
+          {
+            "name": "locked_at",
+            "type": "date"
+          },
+          {
+            "name": "execution_id",
+            "type": "string"
+          },
+          {
+            "name": "last_error_code",
+            "type": "string"
+          },
+          {
+            "name": "last_error_message",
+            "type": "string"
+          },
+          {
+            "name": "updated_by",
+            "type": "string"
+          },
+          {
+            "name": "audit_json",
+            "type": "string"
+          },
+          {
+            "name": "engagement_status",
+            "type": "string"
+          },
+          {
+            "name": "last_inbound_type",
+            "type": "string"
+          },
+          {
+            "name": "last_inbound_event_id",
+            "type": "string"
+          },
+          {
+            "name": "last_inbound_at",
+            "type": "date"
+          },
+          {
+            "name": "last_inbound_from",
+            "type": "string"
+          },
+          {
+            "name": "last_reply_preview",
+            "type": "string"
+          },
+          {
+            "name": "replied_at",
+            "type": "date"
+          },
+          {
+            "name": "opted_out_at",
+            "type": "date"
+          },
+          {
+            "name": "hard_bounced_at",
+            "type": "date"
+          },
+          {
+            "name": "soft_bounce_count",
+            "type": "number"
+          },
+          {
+            "name": "auto_reply_count",
+            "type": "number"
+          },
+          {
+            "name": "engagement_updated_at",
+            "type": "date"
+          },
+          {
+            "name": "engagement_updated_by",
+            "type": "string"
+          },
+          {
+            "name": "created_at",
+            "type": "date"
+          },
+          {
+            "name": "updated_at",
+            "type": "date"
+          }
+        ]
+      }
+    },
+    {
+      "name": "outreach_batches_v3",
+      "purpose": "Immutable confirmed-batch header and delivery state.",
+      "primaryKey": "batch_id",
+      "upsertKey": "idempotency_key",
+      "requiredColumns": [
+        "batch_id",
+        "idempotency_key",
+        "campaign_version",
+        "send_mode",
+        "status",
+        "item_count",
+        "manifest_hash",
+        "manifest_hash_schema",
+        "provider_snapshot",
+        "sender_email_snapshot",
+        "reply_to_snapshot",
+        "batch_limit_snapshot",
+        "inter_send_seconds_snapshot",
+        "created_by",
+        "created_at",
+        "updated_at"
+      ],
+      "uniqueColumns": [
+        "batch_id",
+        "idempotency_key"
+      ],
+      "enums": {
+        "send_mode": [
+          "TEST",
+          "LIVE"
+        ],
+        "status": [
+          "DRAFT",
+          "CONFIRMED",
+          "LOCKED",
+          "SENDING",
+          "COMPLETE",
+          "FAILED",
+          "NEEDS_RECONCILIATION",
+          "CANCELLED"
+        ]
+      },
+      "createPayload": {
+        "name": "outreach_batches_v3",
+        "columns": [
+          {
+            "name": "batch_id",
+            "type": "string"
+          },
+          {
+            "name": "idempotency_key",
+            "type": "string"
+          },
+          {
+            "name": "campaign_version",
+            "type": "string"
+          },
+          {
+            "name": "send_mode",
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "type": "string"
+          },
+          {
+            "name": "item_count",
+            "type": "number"
+          },
+          {
+            "name": "manifest_hash",
+            "type": "string"
+          },
+          {
+            "name": "manifest_hash_schema",
+            "type": "string"
+          },
+          {
+            "name": "provider_snapshot",
+            "type": "string"
+          },
+          {
+            "name": "sender_name_snapshot",
+            "type": "string"
+          },
+          {
+            "name": "sender_email_snapshot",
+            "type": "string"
+          },
+          {
+            "name": "reply_to_snapshot",
+            "type": "string"
+          },
+          {
+            "name": "test_recipient_snapshot",
+            "type": "string"
+          },
+          {
+            "name": "batch_limit_snapshot",
+            "type": "number"
+          },
+          {
+            "name": "inter_send_seconds_snapshot",
+            "type": "number"
+          },
+          {
+            "name": "sender_domain_authenticated_snapshot",
+            "type": "boolean"
+          },
+          {
+            "name": "pilot_complete_snapshot",
+            "type": "boolean"
+          },
+          {
+            "name": "confirmed_by",
+            "type": "string"
+          },
+          {
+            "name": "confirmed_at",
+            "type": "date"
+          },
+          {
+            "name": "created_by",
+            "type": "string"
+          },
+          {
+            "name": "created_at",
+            "type": "date"
+          },
+          {
+            "name": "started_at",
+            "type": "date"
+          },
+          {
+            "name": "completed_at",
+            "type": "date"
+          },
+          {
+            "name": "lock_token",
+            "type": "string"
+          },
+          {
+            "name": "locked_at",
+            "type": "date"
+          },
+          {
+            "name": "execution_id",
+            "type": "string"
+          },
+          {
+            "name": "last_error_code",
+            "type": "string"
+          },
+          {
+            "name": "last_error_message",
+            "type": "string"
+          },
+          {
+            "name": "updated_at",
+            "type": "date"
+          }
+        ]
+      }
+    },
+    {
+      "name": "outreach_batch_items_v3",
+      "purpose": "Immutable, ordered send snapshots for an exact confirmed batch.",
+      "primaryKey": "item_key",
+      "upsertKey": "item_key",
+      "requiredColumns": [
+        "item_key",
+        "batch_id",
+        "batch_position",
+        "review_id",
+        "contact_key",
+        "campaign_version",
+        "send_mode",
+        "intended_recipient",
+        "send_to",
+        "unsubscribe_token",
+        "unsubscribe_token_hash",
+        "approved_revision",
+        "approved_hash",
+        "draft_hash_schema",
+        "draft_subject_snapshot",
+        "draft_body_snapshot",
+        "email_template_version",
+        "email_template_hash",
+        "email_html_snapshot",
+        "email_text_snapshot",
+        "email_html_hash",
+        "email_text_hash",
+        "item_manifest_hash",
+        "item_manifest_hash_schema",
+        "status",
+        "created_at",
+        "updated_at"
+      ],
+      "uniqueColumns": [
+        "item_key"
+      ],
+      "enums": {
+        "status": [
+          "CONFIRMED",
+          "LOCKED",
+          "SENDING",
+          "SENT",
+          "FAILED",
+          "NEEDS_RECONCILIATION",
+          "CANCELLED"
+        ]
+      },
+      "createPayload": {
+        "name": "outreach_batch_items_v3",
+        "columns": [
+          {
+            "name": "item_key",
+            "type": "string"
+          },
+          {
+            "name": "batch_id",
+            "type": "string"
+          },
+          {
+            "name": "batch_position",
+            "type": "number"
+          },
+          {
+            "name": "review_id",
+            "type": "string"
+          },
+          {
+            "name": "contact_key",
+            "type": "string"
+          },
+          {
+            "name": "campaign_version",
+            "type": "string"
+          },
+          {
+            "name": "send_mode",
+            "type": "string"
+          },
+          {
+            "name": "company_name_snapshot",
+            "type": "string"
+          },
+          {
+            "name": "intended_recipient",
+            "type": "string"
+          },
+          {
+            "name": "send_to",
+            "type": "string"
+          },
+          {
+            "name": "unsubscribe_token",
+            "type": "string"
+          },
+          {
+            "name": "unsubscribe_token_hash",
+            "type": "string"
+          },
+          {
+            "name": "approved_revision",
+            "type": "number"
+          },
+          {
+            "name": "approved_hash",
+            "type": "string"
+          },
+          {
+            "name": "draft_hash_schema",
+            "type": "string"
+          },
+          {
+            "name": "draft_subject_snapshot",
+            "type": "string"
+          },
+          {
+            "name": "draft_body_snapshot",
+            "type": "string"
+          },
+          {
+            "name": "email_template_version",
+            "type": "string"
+          },
+          {
+            "name": "email_template_hash",
+            "type": "string"
+          },
+          {
+            "name": "email_html_snapshot",
+            "type": "string"
+          },
+          {
+            "name": "email_text_snapshot",
+            "type": "string"
+          },
+          {
+            "name": "email_html_hash",
+            "type": "string"
+          },
+          {
+            "name": "email_text_hash",
+            "type": "string"
+          },
+          {
+            "name": "item_manifest_hash",
+            "type": "string"
+          },
+          {
+            "name": "item_manifest_hash_schema",
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "type": "string"
+          },
+          {
+            "name": "attempt_count",
+            "type": "number"
+          },
+          {
+            "name": "provider_message_id",
+            "type": "string"
+          },
+          {
+            "name": "sent_at",
+            "type": "date"
+          },
+          {
+            "name": "lock_token",
+            "type": "string"
+          },
+          {
+            "name": "locked_at",
+            "type": "date"
+          },
+          {
+            "name": "execution_id",
+            "type": "string"
+          },
+          {
+            "name": "last_error_code",
+            "type": "string"
+          },
+          {
+            "name": "last_error_message",
+            "type": "string"
+          },
+          {
+            "name": "created_at",
+            "type": "date"
+          },
+          {
+            "name": "updated_at",
+            "type": "date"
+          }
+        ]
+      }
+    },
+    {
+      "name": "outreach_inbound_events_v3",
+      "purpose": "Idempotent inbound mailbox event ledger. One row per canonical inbound message event.",
+      "primaryKey": "event_id",
+      "upsertKey": "dedupe_key",
+      "requiredColumns": [
+        "event_id",
+        "dedupe_key",
+        "message_id",
+        "from_email",
+        "to_email",
+        "subject",
+        "received_at",
+        "event_type",
+        "processing_status",
+        "created_at",
+        "updated_at"
+      ],
+      "uniqueColumns": [
+        "event_id",
+        "dedupe_key"
+      ],
+      "enums": {
+        "event_type": [
+          "HUMAN_REPLY",
+          "INTERESTED",
+          "OPT_OUT",
+          "AUTO_REPLY",
+          "HARD_BOUNCE",
+          "SOFT_BOUNCE",
+          "UNKNOWN_BOUNCE",
+          "UNMATCHED"
+        ],
+        "processing_status": [
+          "RECEIVED",
+          "PROCESSING",
+          "APPLIED",
+          "NOTIFIED",
+          "NEEDS_REVIEW",
+          "IGNORED_TEST",
+          "DUPLICATE",
+          "FAILED"
+        ],
+        "notification_status": [
+          "NOT_REQUIRED",
+          "PENDING",
+          "SENT",
+          "FAILED"
+        ]
+      },
+      "createPayload": {
+        "name": "outreach_inbound_events_v3",
+        "columns": [
+          {
+            "name": "event_id",
+            "type": "string"
+          },
+          {
+            "name": "dedupe_key",
+            "type": "string"
+          },
+          {
+            "name": "mailbox",
+            "type": "string"
+          },
+          {
+            "name": "folder",
+            "type": "string"
+          },
+          {
+            "name": "uid_validity",
+            "type": "string"
+          },
+          {
+            "name": "imap_uid",
+            "type": "string"
+          },
+          {
+            "name": "message_id",
+            "type": "string"
+          },
+          {
+            "name": "in_reply_to",
+            "type": "string"
+          },
+          {
+            "name": "references_json",
+            "type": "string"
+          },
+          {
+            "name": "from_email",
+            "type": "string"
+          },
+          {
+            "name": "to_email",
+            "type": "string"
+          },
+          {
+            "name": "subject",
+            "type": "string"
+          },
+          {
+            "name": "received_at",
+            "type": "date"
+          },
+          {
+            "name": "body_excerpt",
+            "type": "string"
+          },
+          {
+            "name": "body_fingerprint",
+            "type": "string"
+          },
+          {
+            "name": "headers_json",
+            "type": "string"
+          },
+          {
+            "name": "event_type",
+            "type": "string"
+          },
+          {
+            "name": "reply_intent",
+            "type": "string"
+          },
+          {
+            "name": "classification_method",
+            "type": "string"
+          },
+          {
+            "name": "classification_confidence",
+            "type": "number"
+          },
+          {
+            "name": "match_method",
+            "type": "string"
+          },
+          {
+            "name": "match_confidence",
+            "type": "number"
+          },
+          {
+            "name": "review_id",
+            "type": "string"
+          },
+          {
+            "name": "contact_key",
+            "type": "string"
+          },
+          {
+            "name": "campaign_version",
+            "type": "string"
+          },
+          {
+            "name": "batch_id",
+            "type": "string"
+          },
+          {
+            "name": "item_key",
+            "type": "string"
+          },
+          {
+            "name": "outbound_provider_message_id",
+            "type": "string"
+          },
+          {
+            "name": "send_mode",
+            "type": "string"
+          },
+          {
+            "name": "intended_recipient",
+            "type": "string"
+          },
+          {
+            "name": "actual_send_to",
+            "type": "string"
+          },
+          {
+            "name": "is_test",
+            "type": "boolean"
+          },
+          {
+            "name": "dsn_action",
+            "type": "string"
+          },
+          {
+            "name": "dsn_status",
+            "type": "string"
+          },
+          {
+            "name": "dsn_diagnostic",
+            "type": "string"
+          },
+          {
+            "name": "bounce_recipient",
+            "type": "string"
+          },
+          {
+            "name": "planned_action",
+            "type": "string"
+          },
+          {
+            "name": "action_applied",
+            "type": "boolean"
+          },
+          {
+            "name": "processing_status",
+            "type": "string"
+          },
+          {
+            "name": "notification_status",
+            "type": "string"
+          },
+          {
+            "name": "notified_at",
+            "type": "date"
+          },
+          {
+            "name": "execution_id",
+            "type": "string"
+          },
+          {
+            "name": "last_error_code",
+            "type": "string"
+          },
+          {
+            "name": "last_error_message",
+            "type": "string"
+          },
+          {
+            "name": "created_at",
+            "type": "date"
+          },
+          {
+            "name": "updated_at",
+            "type": "date"
+          }
+        ]
+      }
+    },
+    {
+      "name": "outreach_suppressions_v3",
+      "purpose": "Canonical active email/domain controls for opt-outs, bounces, and human-reply holds.",
+      "primaryKey": "suppression_key",
+      "upsertKey": "suppression_key",
+      "requiredColumns": [
+        "suppression_key",
+        "scope",
+        "control_type",
+        "reason_code",
+        "active",
+        "permanent",
+        "created_by",
+        "created_at",
+        "updated_at"
+      ],
+      "uniqueColumns": [
+        "suppression_key"
+      ],
+      "enums": {
+        "scope": [
+          "EMAIL",
+          "DOMAIN"
+        ],
+        "control_type": [
+          "SUPPRESS",
+          "HOLD"
+        ],
+        "reason_code": [
+          "OPT_OUT",
+          "HARD_BOUNCE",
+          "SOFT_BOUNCE_THRESHOLD",
+          "HUMAN_REPLY_REVIEW",
+          "MANUAL",
+          "COMPLAINT",
+          "INVALID_ADDRESS"
+        ]
+      },
+      "createPayload": {
+        "name": "outreach_suppressions_v3",
+        "columns": [
+          {
+            "name": "suppression_key",
+            "type": "string"
+          },
+          {
+            "name": "scope",
+            "type": "string"
+          },
+          {
+            "name": "normalized_email",
+            "type": "string"
+          },
+          {
+            "name": "normalized_domain",
+            "type": "string"
+          },
+          {
+            "name": "control_type",
+            "type": "string"
+          },
+          {
+            "name": "reason_code",
+            "type": "string"
+          },
+          {
+            "name": "reason_detail",
+            "type": "string"
+          },
+          {
+            "name": "active",
+            "type": "boolean"
+          },
+          {
+            "name": "permanent",
+            "type": "boolean"
+          },
+          {
+            "name": "source_event_id",
+            "type": "string"
+          },
+          {
+            "name": "source_review_id",
+            "type": "string"
+          },
+          {
+            "name": "created_by",
+            "type": "string"
+          },
+          {
+            "name": "created_at",
+            "type": "date"
+          },
+          {
+            "name": "updated_by",
+            "type": "string"
+          },
+          {
+            "name": "updated_at",
+            "type": "date"
+          },
+          {
+            "name": "released_by",
+            "type": "string"
+          },
+          {
+            "name": "released_at",
+            "type": "date"
+          },
+          {
+            "name": "release_reason",
+            "type": "string"
+          },
+          {
+            "name": "audit_json",
+            "type": "string"
+          }
+        ]
+      }
+    }
+  ]
+}
